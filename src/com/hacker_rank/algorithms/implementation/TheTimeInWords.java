@@ -1,7 +1,5 @@
 package com.hacker_rank.algorithms.implementation;
 
-import com.google.common.collect.ImmutableMap;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -77,6 +75,6 @@ public class TheTimeInWords {
         temp.put(28, "twenty eight minutes");
         temp.put(29, "twenty nine minutes");
         temp.put(30, "half");
-        NUM_TO_WORDS = ImmutableMap.copyOf(temp);
+        NUM_TO_WORDS = new HashMap<>(temp);
     }
 }
