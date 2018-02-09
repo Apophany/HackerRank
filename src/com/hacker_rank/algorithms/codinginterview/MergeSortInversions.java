@@ -28,13 +28,11 @@ public class MergeSortInversions {
 
         long inversions = 0;
         while (i < left.length && j < right.length) {
-            if (i < left.length && j < right.length) {
-                if (left[i] <= right[j]) {
-                    result[k++] = left[i++];
-                } else {
-                    result[k++] = right[j++];
-                    inversions = inversions + (left.length - i);
-                }
+            if (left[i] <= right[j]) {
+                result[k++] = left[i++];
+            } else {
+                result[k++] = right[j++];
+                inversions = inversions + (left.length - i);
             }
         }
 
