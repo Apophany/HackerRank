@@ -56,4 +56,36 @@ public class ArraysAndStringsTest {
                 matrix
         );
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_nullify_empty() {
+        int[][] matrix = new int[][]{};
+        nullify(matrix);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_nullify_empty_columns() {
+        int[][] matrix = new int[][]{new int[]{}};
+        nullify(matrix);
+    }
+
+    @Test
+    public void test_nullify() {
+        int[][] matrix = new int[][]{
+                new int[]{1, 2, 3, 4},
+                new int[]{5, 6, 7, 8},
+                new int[]{9, 10, 0, 12},
+                new int[]{0, 14, 15, 16}
+        };
+        nullify(matrix);
+
+        assertArrayEquals(new int[][]{
+                        new int[]{0, 2, 0, 4},
+                        new int[]{0, 6, 0, 8},
+                        new int[]{0, 0, 0, 0},
+                        new int[]{0, 0, 0, 0}
+                },
+                matrix
+        );
+    }
 }

@@ -178,8 +178,8 @@ public class ArraysAndStrings {
      * an element in an MxN matrix is 0, its entire row
      * and column are set to 0
      */
-    public void nullify(int[][] matrix) {
-        if (matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0) {
+    public static void nullify(int[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
             throw new IllegalArgumentException("Must be an NxM matrix");
         }
         final boolean[] isRowZero = new boolean[matrix.length];
