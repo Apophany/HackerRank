@@ -1,5 +1,7 @@
 package com.hacker_rank.algorithms.codinginterview;
 
+import java.nio.file.Paths;
+
 public class ArraysAndStrings {
 
     /**
@@ -167,6 +169,46 @@ public class ArraysAndStrings {
 
                 //top -> right
                 matrix[offset][matrixLength - layer] = top;
+            }
+        }
+    }
+
+    /**
+     * 1.8 Zero Matrix: Write an algorithm such that if
+     * an element in an MxN matrix is 0, its entire row
+     * and column are set to 0
+     */
+    public void nullify(int[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0) {
+            throw new IllegalArgumentException("Must be an NxM matrix");
+        }
+        final boolean[] isRowZero = new boolean[matrix.length];
+        final boolean[] isColumnZero = new boolean[matrix[0].length];
+
+        final int rows = matrix.length;
+        final int columns = matrix[0].length;
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if (matrix[i][j] == 0) {
+                    isRowZero[i] = true;
+                    isColumnZero[j] = true;
+                }
+            }
+        }
+
+        for (int i = 0; i < isRowZero.length; i++) {
+            if (isRowZero[i]) {
+                for (int j = 0; j < rows; j++) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        for (int i = 0; i < isColumnZero.length; i++) {
+            if (isColumnZero[i]) {
+                for (int j = 0; j < rows; j++) {
+                    matrix[j][i] = 0;
+                }
             }
         }
     }

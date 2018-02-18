@@ -47,8 +47,7 @@ public class ArraysAndStringsTest {
         };
         rotate(matrix);
 
-        assertArrayEquals(
-                new int[][]{
+        assertArrayEquals(new int[][]{
                         new int[]{13, 9, 5, 1},
                         new int[]{14, 10, 6, 2},
                         new int[]{15, 11, 7, 3},
