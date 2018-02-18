@@ -141,4 +141,33 @@ public class ArraysAndStrings {
 
         return builder.length() < toCompress.length() ? builder.toString() : toCompress;
     }
+
+    /**
+     * 1.7 Matrix rotation: Given an image represented by an
+     * NxN matrix, where each pixel is 4 bytes, rotate the
+     * image by 90 degrees
+     */
+    public static void rotate(int[][] matrix) {
+        final int numLayers = matrix.length / 2;
+        final int matrixLength = matrix.length - 1;
+
+        for (int layer = 0; layer < numLayers; layer++) {
+            for (int offset = layer; offset < matrixLength - layer; offset++) {
+                //save the top
+                final int top = matrix[layer][offset];
+
+                //left -> top
+                matrix[layer][offset] = matrix[matrixLength - offset][layer];
+
+                //bottom -> left
+                matrix[matrixLength - offset][layer] = matrix[matrixLength - layer][matrixLength - offset];
+
+                //right -> bottom
+                matrix[matrixLength - layer][matrixLength - offset] = matrix[offset][matrixLength - layer];
+
+                //top -> right
+                matrix[offset][matrixLength - layer] = top;
+            }
+        }
+    }
 }
