@@ -3,10 +3,10 @@ package com.hacker_rank.algorithms.codinginterview;
 
 import org.junit.Test;
 
-import static com.hacker_rank.algorithms.codinginterview.ArraysAndStrings.*;
+import static com.hacker_rank.algorithms.codinginterview.book.Ch1_ArraysAndStrings.*;
 import static org.junit.Assert.*;
 
-public class ArraysAndStringsTest {
+public class Ch1_ArraysAndStringsTest {
 
     @Test
     public void test_urlify() {

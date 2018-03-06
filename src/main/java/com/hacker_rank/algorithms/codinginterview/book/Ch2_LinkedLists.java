@@ -1,9 +1,9 @@
-package com.hacker_rank.algorithms.codinginterview;
+package com.hacker_rank.algorithms.codinginterview.book;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class LinkedLists {
+public class Ch2_LinkedLists {
     /**
      * 2.1 Remove Dupes: Remove duplicates from an
      * unsorted linked list

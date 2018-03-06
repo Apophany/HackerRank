@@ -1,4 +1,4 @@
-package com.hacker_rank.algorithms.codinginterview;
+package com.hacker_rank.algorithms.codinginterview.online;
 
 import java.util.Scanner;
 

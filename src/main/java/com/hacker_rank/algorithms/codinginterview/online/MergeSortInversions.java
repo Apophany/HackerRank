@@ -1,4 +1,4 @@
-package com.hacker_rank.algorithms.codinginterview;
+package com.hacker_rank.algorithms.codinginterview.online;
 
 public class MergeSortInversions {
     private static Count sort(int[] arr) {

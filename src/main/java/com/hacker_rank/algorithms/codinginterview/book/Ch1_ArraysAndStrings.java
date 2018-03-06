@@ -1,8 +1,8 @@
-package com.hacker_rank.algorithms.codinginterview;
+package com.hacker_rank.algorithms.codinginterview.book;
 
 import java.nio.file.Paths;
 
-public class ArraysAndStrings {
+public class Ch1_ArraysAndStrings {
 
     /**
      * 1.3: Urlify: Replace all spaces in a string
