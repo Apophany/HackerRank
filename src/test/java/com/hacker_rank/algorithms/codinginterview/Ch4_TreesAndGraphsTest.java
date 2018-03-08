@@ -1,10 +1,15 @@
 package com.hacker_rank.algorithms.codinginterview;
 
 import com.hacker_rank.algorithms.codinginterview.book.util.GraphNode;
+import com.hacker_rank.algorithms.codinginterview.book.util.TreeNode;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.hacker_rank.algorithms.codinginterview.book.Ch4_TreesAndGraphs.route_between_nodes;
+import java.util.LinkedList;
+import java.util.List;
+
+import static com.hacker_rank.algorithms.codinginterview.book.Ch4_TreesAndGraphs.*;
+import static com.hacker_rank.algorithms.codinginterview.book.TreeIteration.inOrder;
 
 public class Ch4_TreesAndGraphsTest {
 
@@ -16,6 +21,20 @@ public class Ch4_TreesAndGraphsTest {
         toFind.children[0] = root;
 
         Assert.assertTrue(route_between_nodes(root, toFind));
+    }
+
+    @Test
+    public void test_minimal_tree() {
+        final int[] arr = new int[]{1, 2, 3, 4, 5, 6, 7};
+        final TreeNode root = minimal_tree(arr);
+
+        inOrder(root);
+    }
+
+    @Test
+    public void test_list_of_depths() {
+        final List<LinkedList<TreeNode>> levels = listOfDepths(constructTree());
+        System.out.println(levels);
     }
 
     private GraphNode constructGraph(GraphNode toFind) {
@@ -35,5 +54,28 @@ public class Ch4_TreesAndGraphsTest {
         zero.children[1] = toFind;
 
         return root;
+    }
+
+    private TreeNode constructTree() {
+        TreeNode fifth = new TreeNode();
+        fifth.val = 5;
+
+        TreeNode fourth = new TreeNode();
+        fourth.val = 3;
+
+        TreeNode third = new TreeNode();
+        third.val = 7;
+
+        TreeNode second = new TreeNode();
+        second.val = 4;
+        second.left = fourth;
+        second.right = fifth;
+
+        TreeNode first = new TreeNode();
+        first.val = 6;
+        first.left = second;
+        first.right = third;
+
+        return first;
     }
 }
