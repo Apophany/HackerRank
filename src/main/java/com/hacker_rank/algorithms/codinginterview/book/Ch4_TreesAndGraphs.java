@@ -135,4 +135,28 @@ public class Ch4_TreesAndGraphs {
         }
         return isBinarySearchTree(root.left, minValue, root.val) && isBinarySearchTree(root.right, root.val, maxValue);
     }
+
+    /**
+     * 4.6 Successor: Write an algorithm to find the next node (in-order successor) of a given
+     * node in a binary search tree. Assume each node has a link to its parent
+     */
+    public static TreeNode getSuccessor(TreeNode node) {
+        if (node.right == null) {
+            TreeNode curr = node;
+            TreeNode parent = node.parent;
+            while (parent != null && parent.left != curr) {
+                curr = parent;
+                parent = curr.parent;
+            }
+            return parent;
+        }
+        return findSuccessor(node.right);
+    }
+
+    private static TreeNode findSuccessor(TreeNode node) {
+        if (node.left == null) {
+            return node;
+        }
+        return findSuccessor(node.left);
+    }
 }
