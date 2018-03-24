@@ -37,6 +37,17 @@ public class Ch4_TreesAndGraphsTest {
         System.out.println(levels);
     }
 
+    @Test
+    public void test_balanced_tree() {
+        final TreeNode root = constructTree();
+        Assert.assertTrue(checkBalanced(root));
+
+        //Make unbalanced
+        root.left.left.left = new TreeNode();
+
+        Assert.assertFalse(checkBalanced(root));
+    }
+
     private GraphNode constructGraph(GraphNode toFind) {
         GraphNode root = new GraphNode();
         root.children = new GraphNode[2];
@@ -61,6 +72,7 @@ public class Ch4_TreesAndGraphsTest {
         fifth.val = 5;
 
         TreeNode fourth = new TreeNode();
+        fourth.left = null;
         fourth.val = 3;
 
         TreeNode third = new TreeNode();

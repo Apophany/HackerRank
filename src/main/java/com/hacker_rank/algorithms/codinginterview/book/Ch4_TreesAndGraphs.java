@@ -3,10 +3,7 @@ package com.hacker_rank.algorithms.codinginterview.book;
 import com.hacker_rank.algorithms.codinginterview.book.util.GraphNode;
 import com.hacker_rank.algorithms.codinginterview.book.util.TreeNode;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class Ch4_TreesAndGraphs {
     /**
@@ -59,10 +56,6 @@ public class Ch4_TreesAndGraphs {
         return node;
     }
 
-    public static void main(String[] args) {
-        minimal_tree(new int[]{1, 2});
-    }
-
     /**
      * 4.3 List of Depths: Given a binary tree, design an algorithm
      * which creates a linked list of all the nodes at each depth
@@ -93,5 +86,45 @@ public class Ch4_TreesAndGraphs {
         }
 
         return levels;
+    }
+
+    /**
+     * Check Balanced: Implement a function to check if a binary tree is balanced.
+     * Defined such that the heights of the two subtrees of any node never differ
+     * by more than one.
+     */
+    public static boolean checkBalanced(TreeNode root) {
+        return root == null || getHeight(root) != Integer.MIN_VALUE;
+    }
+
+    private static int getHeight(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int leftHeight = getHeight(root.left);
+        int rightHeight = getHeight(root.right);
+
+        if (leftHeight == Integer.MIN_VALUE) {
+            return leftHeight;
+        }
+        if (rightHeight == Integer.MIN_VALUE) {
+            return rightHeight;
+        }
+
+        if (Math.abs(leftHeight - rightHeight) > 1) {
+            return Integer.MIN_VALUE;
+        }
+
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    private static class NodeInfo {
+        final int height;
+        final boolean isBalanced;
+
+        public NodeInfo(int height, boolean isBalanced) {
+            this.height = height;
+            this.isBalanced = isBalanced;
+        }
     }
 }

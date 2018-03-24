@@ -1,12 +1,9 @@
 package com.hacker_rank.algorithms.codinginterview;
 
-import com.hacker_rank.algorithms.codinginterview.book.TreeIteration;
 import com.hacker_rank.algorithms.codinginterview.book.util.TreeNode;
 import org.junit.Test;
 
-import static com.hacker_rank.algorithms.codinginterview.book.TreeIteration.inOrder;
-import static com.hacker_rank.algorithms.codinginterview.book.TreeIteration.postOrder;
-import static com.hacker_rank.algorithms.codinginterview.book.TreeIteration.preOrder;
+import static com.hacker_rank.algorithms.codinginterview.book.TreeIteration.*;
 
 public class TreeIterationTest {
     private final TreeNode fullTree = constructFullTree();
