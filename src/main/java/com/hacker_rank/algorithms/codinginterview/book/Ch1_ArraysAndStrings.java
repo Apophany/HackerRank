@@ -1,7 +1,5 @@
 package com.hacker_rank.algorithms.codinginterview.book;
 
-import java.nio.file.Paths;
-
 public class Ch1_ArraysAndStrings {
 
     /**
@@ -53,17 +51,20 @@ public class Ch1_ArraysAndStrings {
     }
 
     /**
-     * 1.4 Palindrom Permutation: Given a string, check if it's
+     * 1.4 Palindrome Permutation: Given a string, check if it's
      * a permutation of a palindrome. It does not need to be
      * limited to just dictionary words
      */
     public static boolean checkPalindrome(String val) {
+        val = val.toLowerCase();
         int[] charCounts = new int[26];
 
+        int nonEmptyCount = 0;
         for (char c : val.toCharArray()) {
             if (c == ' ') {
                 continue;
             }
+            nonEmptyCount++;
             charCounts[(c - 'a') % 26] = charCounts[(c - 'a') % 26] + 1;
         }
 
@@ -72,12 +73,12 @@ public class Ch1_ArraysAndStrings {
             if (c == ' ') {
                 continue;
             }
-            if (charCounts[(c - 'a') % 26] / 2 != 0) {
+            if (Integer.lowestOneBit(charCounts[(c - 'a') % 26]) == 1) {
                 numOdd++;
             }
         }
 
-        return val.length() / 2 != 0 ? numOdd == 1 : numOdd == 0;
+        return nonEmptyCount % 2 == 0 ? numOdd == 0 : numOdd == 1;
     }
 
     /**
