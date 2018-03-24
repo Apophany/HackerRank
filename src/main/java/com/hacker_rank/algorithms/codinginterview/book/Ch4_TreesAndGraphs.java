@@ -118,13 +118,21 @@ public class Ch4_TreesAndGraphs {
         return Math.max(leftHeight, rightHeight) + 1;
     }
 
-    private static class NodeInfo {
-        final int height;
-        final boolean isBalanced;
+    /**
+     * 4.5 Validate BST: Check if a binary tree is a binary search tree
+     */
+    public static boolean isBinarySearchTree(TreeNode root) {
+        return isBinarySearchTree(root.left, Integer.MIN_VALUE, root.val)
+                && isBinarySearchTree(root.right, root.val, Integer.MAX_VALUE);
+    }
 
-        public NodeInfo(int height, boolean isBalanced) {
-            this.height = height;
-            this.isBalanced = isBalanced;
+    private static boolean isBinarySearchTree(TreeNode root, int minValue, int maxValue) {
+        if (root == null) {
+            return true;
         }
+        if (root.val > maxValue || root.val < minValue) {
+            return false;
+        }
+        return isBinarySearchTree(root.left, minValue, root.val) && isBinarySearchTree(root.right, root.val, maxValue);
     }
 }

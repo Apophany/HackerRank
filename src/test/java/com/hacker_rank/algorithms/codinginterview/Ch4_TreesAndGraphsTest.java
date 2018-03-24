@@ -48,6 +48,17 @@ public class Ch4_TreesAndGraphsTest {
         Assert.assertFalse(checkBalanced(root));
     }
 
+    @Test
+    public void test_valid_BST() {
+        final TreeNode root = constructTree();
+        Assert.assertTrue(isBinarySearchTree(root));
+
+        final TreeNode invalidNode = new TreeNode(5);
+        root.left.left.right = invalidNode;
+
+        Assert.assertFalse(isBinarySearchTree(root));
+    }
+
     private GraphNode constructGraph(GraphNode toFind) {
         GraphNode root = new GraphNode();
         root.children = new GraphNode[2];
