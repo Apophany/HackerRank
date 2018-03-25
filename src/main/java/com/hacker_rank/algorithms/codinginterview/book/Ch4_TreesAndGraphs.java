@@ -202,9 +202,10 @@ public class Ch4_TreesAndGraphs {
     private static <T> List<GenericGraphNode<T>> createBuildOrder(Graph<T> graph) {
         final List<GenericGraphNode<T>> buildOrder = new ArrayList<>(graph.getNodes().size());
 
+        //Add initial root nodes
         addRootNodes(graph.getNodes(), buildOrder);
 
-        //Process remaining
+        //Process remaining nodes
         int toBeProcessed = 0;
         while (toBeProcessed < graph.getNodes().size()) {
             if (toBeProcessed > buildOrder.size() - 1) {
