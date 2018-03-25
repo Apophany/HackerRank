@@ -4,6 +4,8 @@ import com.hacker_rank.algorithms.codinginterview.book.util.GraphNode;
 import com.hacker_rank.algorithms.codinginterview.book.util.TreeNode;
 
 import java.util.*;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.stream.Collectors;
 
 public class Ch4_TreesAndGraphs {
     /**
@@ -158,5 +160,145 @@ public class Ch4_TreesAndGraphs {
             return node;
         }
         return findSuccessor(node.left);
+    }
+
+    /**
+     * 4.7 Build Order: Given a list of projects and dependencies, all of a projects dependencies
+     * must be built before the project is. Find a build order that will allow the projects to be
+     * built.
+     * <p>
+     * e.g
+     * Input:
+     * projects: a, b, c, d, e, f
+     * dependencies: (a, d), (f, b), (b, d), (f, a), (d, c)
+     * Output: f, e, a, b, d, c
+     */
+    public static List<Character> createBuildOrder(
+            List<Character> projects,
+            List<SimpleEntry<Character, Character>> dependencies
+    ) {
+        Graph<Character> graph = constructGraph(projects, dependencies);
+        return createBuildOrder(graph).stream().map(GenericGraphNode::getVal).collect(Collectors.toList());
+    }
+
+    private static Graph<Character> constructGraph(
+            List<Character> projects,
+            List<SimpleEntry<Character, Character>> dependencies
+    ) {
+        final Graph<Character> graph = new Graph<>();
+        for (Character project : projects) {
+            graph.getNodeOrCreate(project);
+        }
+
+        for (SimpleEntry<Character, Character> graphEntry : dependencies) {
+            final Character key = graphEntry.getKey();
+            final Character value = graphEntry.getValue();
+            graph.addEdge(key, value);
+        }
+
+        return graph;
+    }
+
+    private static <T> List<GenericGraphNode<T>> createBuildOrder(Graph<T> graph) {
+        final List<GenericGraphNode<T>> buildOrder = new ArrayList<>(graph.getNodes().size());
+
+        addRootNodes(graph.getNodes(), buildOrder);
+
+        //Process remaining
+        int toBeProcessed = 0;
+        while (toBeProcessed < graph.getNodes().size()) {
+            if (toBeProcessed > buildOrder.size() - 1) {
+                throw new IllegalStateException("Cannot build projects - circular dependency");
+            }
+            final GenericGraphNode<T> curr = buildOrder.get(toBeProcessed);
+
+            for (GenericGraphNode<T> child : curr.getChildren()) {
+                child.getParents().remove(curr);
+            }
+
+            addRootNodes(curr.getChildren(), buildOrder);
+            toBeProcessed++;
+        }
+
+        return buildOrder;
+    }
+
+    private static <T> void addRootNodes(List<GenericGraphNode<T>> nodes, List<GenericGraphNode<T>> buildOrder) {
+        //Add nodes with no dependencies
+        for (GenericGraphNode<T> node : nodes) {
+            if (node.getParents().size() == 0) {
+                buildOrder.add(node);
+            }
+        }
+    }
+
+    private static final class Graph<T> {
+        private final List<GenericGraphNode<T>> nodes = new ArrayList<>();
+        private final Map<T, GenericGraphNode<T>> nodeKeyMap = new HashMap<>();
+
+        public List<GenericGraphNode<T>> getNodes() {
+            return nodes;
+        }
+
+        GenericGraphNode<T> getNodeOrCreate(T key) {
+            GenericGraphNode<T> existing = nodeKeyMap.get(key);
+            if (existing == null) {
+                existing = new GenericGraphNode<>(key);
+                nodes.add(existing);
+                nodeKeyMap.put(key, existing);
+            }
+            return existing;
+        }
+
+        public void addEdge(T from, T to) {
+            final GenericGraphNode<T> fromNode = getNodeOrCreate(from);
+            final GenericGraphNode<T> toNode = getNodeOrCreate(to);
+
+            fromNode.getChildren().add(toNode);
+            toNode.getParents().add(fromNode);
+        }
+    }
+
+    private static final class GenericGraphNode<T> {
+        private final List<GenericGraphNode<T>> children = new ArrayList<>();
+        private final List<GenericGraphNode<T>> parents = new ArrayList<>();
+
+        private final T val;
+
+        GenericGraphNode(T val) {
+            this.val = val;
+        }
+
+        T getVal() {
+            return val;
+        }
+
+        List<GenericGraphNode<T>> getParents() {
+            return parents;
+        }
+
+        List<GenericGraphNode<T>> getChildren() {
+            return children;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            GenericGraphNode<?> that = (GenericGraphNode<?>) o;
+            return Objects.equals(val, that.val);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(val);
+        }
+
+        @Override
+        public String toString() {
+            return "GenericGraphNode{" +
+                    "val=" + val +
+                    '}';
+        }
     }
 }

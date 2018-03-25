@@ -5,8 +5,7 @@ import com.hacker_rank.algorithms.codinginterview.book.util.TreeNode;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import static com.hacker_rank.algorithms.codinginterview.book.Ch4_TreesAndGraphs.*;
 import static com.hacker_rank.algorithms.codinginterview.book.TreeIteration.inOrder;
@@ -89,6 +88,26 @@ public class Ch4_TreesAndGraphsTest {
         Assert.assertEquals(a_1, getSuccessor(b_3));
         Assert.assertEquals(c_3, getSuccessor(a_1));
         Assert.assertEquals(null, getSuccessor(d_3));
+    }
+
+    @Test
+    public void test_build_order() {
+        final List<Character> projects = new ArrayList<>();
+        projects.add('a');
+        projects.add('b');
+        projects.add('c');
+        projects.add('d');
+        projects.add('e');
+        projects.add('f');
+
+        final List<AbstractMap.SimpleEntry<Character, Character>> dependencies = new ArrayList<>();
+        dependencies.add(new AbstractMap.SimpleEntry<>('a', 'd'));
+        dependencies.add(new AbstractMap.SimpleEntry<>('f', 'b'));
+        dependencies.add(new AbstractMap.SimpleEntry<>('b', 'd'));
+        dependencies.add(new AbstractMap.SimpleEntry<>('f', 'a'));
+        dependencies.add(new AbstractMap.SimpleEntry<>('d', 'c'));
+
+        System.out.println(createBuildOrder(projects, dependencies));
     }
 
     private GraphNode constructGraph(GraphNode toFind) {
