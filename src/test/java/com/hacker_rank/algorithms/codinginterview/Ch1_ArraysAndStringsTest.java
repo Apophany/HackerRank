@@ -16,6 +16,7 @@ public class Ch1_ArraysAndStringsTest {
     @Test
     public void test_palindrome() {
         assertTrue(checkPalindrome("Tact Coa"));
+        assertTrue(checkPalindrome("Taoc Coat"));
     }
 
     @Test

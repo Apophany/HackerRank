@@ -12,4 +12,12 @@ public class TreeNode {
 
     public TreeNode left;
     public TreeNode right;
+    public TreeNode parent;
+
+    @Override
+    public String toString() {
+        return "TreeNode{" +
+                "val=" + val +
+                '}';
+    }
 }
