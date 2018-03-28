@@ -59,10 +59,6 @@ public class Ch4_TreesAndGraphs {
         return node;
     }
 
-    public static void main(String[] args) {
-        minimal_tree(new int[]{1, 2});
-    }
-
     /**
      * 4.3 List of Depths: Given a binary tree, design an algorithm
      * which creates a linked list of all the nodes at each depth

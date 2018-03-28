@@ -2,6 +2,8 @@ package com.hacker_rank.algorithms.codinginterview.book;
 
 import com.hacker_rank.algorithms.codinginterview.book.util.TreeNode;
 
+import java.util.HashMap;
+
 public class TreeIteration {
     /**
      * In order traversal of binary tree.
