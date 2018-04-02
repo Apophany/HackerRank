@@ -3,8 +3,8 @@ package com.hacker_rank.algorithms.codinginterview.book;
 import com.hacker_rank.algorithms.codinginterview.book.util.GraphNode;
 import com.hacker_rank.algorithms.codinginterview.book.util.TreeNode;
 
-import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Ch4_TreesAndGraphs {
@@ -242,12 +242,12 @@ public class Ch4_TreesAndGraphs {
         return findCommonAncestor(root, first, second).commonAncestor;
     }
 
-    private static SubTree findCommonAncestor(TreeNode root, TreeNode first, TreeNode second) {
+    private static CommonAncestorHelper findCommonAncestor(TreeNode root, TreeNode first, TreeNode second) {
         if (root == null) {
-            return new SubTree();
+            return new CommonAncestorHelper();
         }
-        final SubTree left = findCommonAncestor(root.left, first, second);
-        final SubTree right = findCommonAncestor(root.right, first, second);
+        final CommonAncestorHelper left = findCommonAncestor(root.left, first, second);
+        final CommonAncestorHelper right = findCommonAncestor(root.right, first, second);
 
         if (left.commonAncestor != null) {
             return left;
@@ -256,7 +256,7 @@ public class Ch4_TreesAndGraphs {
             return right;
         }
 
-        final SubTree res = new SubTree();
+        final CommonAncestorHelper res = new CommonAncestorHelper();
         res.containsFirst = left.containsFirst | right.containsFirst;
         res.containsSecond = left.containsSecond | right.containsSecond;
 
@@ -272,10 +272,65 @@ public class Ch4_TreesAndGraphs {
         return res;
     }
 
-    private static final class SubTree {
+    private static final class CommonAncestorHelper {
         TreeNode commonAncestor = null;
         boolean containsFirst = false;
         boolean containsSecond = false;
+    }
+
+    /**
+     * BST Sequences: A BST was created by traversing an array from left to right. Print
+     * all possible arrays that could have led to this tree
+     */
+    public static List<LinkedList<Integer>> getBSTSequences(TreeNode root) {
+        if (root == null) {
+            final List<LinkedList<Integer>> result = new ArrayList<>();
+            result.add(new LinkedList<>());
+            return result;
+        }
+
+        final List<LinkedList<Integer>> left = getBSTSequences(root.left);
+        final List<LinkedList<Integer>> right = getBSTSequences(root.right);
+
+        final LinkedList<Integer> prefix = new LinkedList<>();
+        prefix.add(root.val);
+
+        final List<LinkedList<Integer>> results = new ArrayList<>();
+        for (LinkedList<Integer> leftRes : left) {
+            for (LinkedList<Integer> rightRes : right) {
+                mergeSequences(leftRes, rightRes, prefix, results);
+            }
+        }
+
+        return results;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static void mergeSequences(
+            LinkedList<Integer> first,
+            LinkedList<Integer> second,
+            LinkedList<Integer> prefix,
+            List<LinkedList<Integer>> results
+    ) {
+        if (first.size() == 0 || second.size() == 0) {
+            final LinkedList<Integer> tmp = (LinkedList<Integer>) prefix.clone();
+            tmp.addAll(first);
+            tmp.addAll(second);
+            results.add(tmp);
+            return;
+        }
+
+        final Integer headFirst = first.removeFirst();
+        prefix.addLast(headFirst);
+        mergeSequences(first, second, prefix, results);
+        prefix.removeLast();
+        first.addFirst(headFirst);
+
+        final Integer headSecond = second.removeFirst();
+        prefix.addLast(headSecond);
+        mergeSequences(first, second, prefix, results);
+        prefix.removeLast();
+        second.addFirst(headSecond);
     }
 
     private static final class Graph<T> {

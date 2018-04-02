@@ -146,6 +146,22 @@ public class Ch4_TreesAndGraphsTest {
         Assert.assertNull(getFirstCommonAncestor(root, new TreeNode(5), new TreeNode(7)));
     }
 
+    @Test
+    public void test_bst_sequences() {
+        final TreeNode root = new TreeNode(10);
+        final TreeNode a_1 = new TreeNode(2);
+        final TreeNode b_1 = new TreeNode(3);
+        final TreeNode a_2 = new TreeNode(1);
+        final TreeNode b_2 = new TreeNode(4);
+
+        root.left = a_1;
+        root.right = b_1;
+        a_1.left = a_2;
+        b_1.right = b_2;
+
+        System.out.println(getBSTSequences(root));
+    }
+
     private GraphNode constructGraph(GraphNode toFind) {
         GraphNode root = new GraphNode();
         root.children = new GraphNode[2];
