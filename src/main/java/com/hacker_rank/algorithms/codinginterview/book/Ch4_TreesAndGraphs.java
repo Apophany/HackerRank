@@ -233,6 +233,48 @@ public class Ch4_TreesAndGraphs {
         }
     }
 
+    /**
+     * 4.8 First Common Ancestor: Design an algorithm to find the first common ancestor
+     * of two nodes in a binary tree. Avoid storing additional nodes. It is not necessarily
+     * a binary search tree
+     */
+    public static TreeNode getFirstCommonAncestor(TreeNode root, TreeNode first, TreeNode second) {
+        return findCommonAncestor(root, first, second).commonAncestor;
+    }
+
+    private static SubTree findCommonAncestor(TreeNode root, TreeNode first, TreeNode second) {
+        if (root == null) {
+            return new SubTree();
+        }
+        final SubTree left = findCommonAncestor(root.left, first, second);
+        final SubTree right = findCommonAncestor(root.right, first, second);
+
+        if (left.commonAncestor != null) {
+            return left;
+        }
+        if (right.commonAncestor != null) {
+            return right;
+        }
+
+        final SubTree res = new SubTree();
+        if (root.equals(first)){
+            res.containsFirst = true;
+        }
+        if (root.equals(second)){
+            res.containsSecond = true;
+        }
+        if ((left.containsFirst & right.containsSecond) ^ (left.containsSecond & right.containsFirst)) {
+            res.commonAncestor = root;
+        }
+        return res;
+    }
+
+    private static final class SubTree {
+        TreeNode commonAncestor = null;
+        boolean containsFirst = false;
+        boolean containsSecond = false;
+    }
+
     private static final class Graph<T> {
         private final List<GenericGraphNode<T>> nodes = new ArrayList<>();
         private final Map<T, GenericGraphNode<T>> nodeKeyMap = new HashMap<>();

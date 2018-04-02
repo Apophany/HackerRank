@@ -110,6 +110,42 @@ public class Ch4_TreesAndGraphsTest {
         System.out.println(createBuildOrder(projects, dependencies));
     }
 
+    @Test
+    public void test_common_ancestor() {
+        final TreeNode root = new TreeNode(20);
+        final TreeNode a_1 = new TreeNode(10);
+        final TreeNode b_1 = new TreeNode(30);
+        final TreeNode a_2 = new TreeNode(5);
+        final TreeNode b_2 = new TreeNode(15);
+        final TreeNode a_3 = new TreeNode(3);
+        final TreeNode b_3 = new TreeNode(7);
+        final TreeNode c_3 = new TreeNode(17);
+
+        root.left = a_1;
+        root.right = b_1;
+        a_1.left = a_2;
+        a_1.right = b_2;
+        a_2.left = a_3;
+        a_2.right = b_3;
+        b_2.right = c_3;
+
+        Assert.assertEquals(a_1, getFirstCommonAncestor(root, new TreeNode(5), new TreeNode(15)));
+    }
+
+    @Test
+    public void test_common_ancestor_missing_node() {
+        final TreeNode root = new TreeNode(3);
+        final TreeNode a_1 = new TreeNode(1);
+        final TreeNode b_1 = new TreeNode(5);
+        final TreeNode b_2 = new TreeNode(8);
+
+        root.left = a_1;
+        root.right = b_1;
+        b_1.right = b_2;
+
+        Assert.assertNull(getFirstCommonAncestor(root, new TreeNode(5), new TreeNode(7)));
+    }
+
     private GraphNode constructGraph(GraphNode toFind) {
         GraphNode root = new GraphNode();
         root.children = new GraphNode[2];
