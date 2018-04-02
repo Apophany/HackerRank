@@ -129,7 +129,7 @@ public class Ch4_TreesAndGraphsTest {
         a_2.right = b_3;
         b_2.right = c_3;
 
-        Assert.assertEquals(a_1, getFirstCommonAncestor(root, new TreeNode(5), new TreeNode(15)));
+        Assert.assertEquals(a_1, getFirstCommonAncestor(root, new TreeNode(5), new TreeNode(17)));
     }
 
     @Test

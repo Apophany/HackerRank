@@ -257,6 +257,9 @@ public class Ch4_TreesAndGraphs {
         }
 
         final SubTree res = new SubTree();
+        res.containsFirst = left.containsFirst | right.containsFirst;
+        res.containsSecond = left.containsSecond | right.containsSecond;
+
         if (root.equals(first)){
             res.containsFirst = true;
         }
