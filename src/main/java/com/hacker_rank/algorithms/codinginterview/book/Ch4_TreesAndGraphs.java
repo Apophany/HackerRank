@@ -279,7 +279,7 @@ public class Ch4_TreesAndGraphs {
     }
 
     /**
-     * BST Sequences: A BST was created by traversing an array from left to right. Print
+     * 4.9 BST Sequences: A BST was created by traversing an array from left to right. Print
      * all possible arrays that could have led to this tree
      */
     public static List<LinkedList<Integer>> getBSTSequences(TreeNode root) {
@@ -331,6 +331,30 @@ public class Ch4_TreesAndGraphs {
         mergeSequences(first, second, prefix, results);
         prefix.removeLast();
         second.addFirst(headSecond);
+    }
+
+    /**
+     * 4.10 Check Subtree: T1 and T2 are two large binary trees, with T1 much bigger than T2. Create an
+     * algorithm to determine if T2 is a subtree of T1.
+     */
+    public static boolean isSubtree(TreeNode first, TreeNode second) {
+        final StringBuilder firstPath = new StringBuilder();
+        final StringBuilder secondPath = new StringBuilder();
+
+        preOrderTraversal(first, firstPath);
+        preOrderTraversal(second, secondPath);
+
+        return first.toString().contains(secondPath.toString());
+    }
+
+    private static void preOrderTraversal(TreeNode root, StringBuilder pathBuilder) {
+        if (root == null) {
+            pathBuilder.append("null");
+            return;
+        }
+        pathBuilder.append(root.val).append(" ");
+        preOrderTraversal(root.left, pathBuilder);
+        preOrderTraversal(root.right, pathBuilder);
     }
 
     private static final class Graph<T> {
