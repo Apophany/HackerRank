@@ -162,6 +162,25 @@ public class Ch4_TreesAndGraphsTest {
         System.out.println(getBSTSequences(root));
     }
 
+    @Test
+    public void test_subtree() {
+        final TreeNode root = constructTree();
+
+        TreeNode subTreeRoot = new TreeNode(4);
+        TreeNode subTree_a_1 = new TreeNode(3);
+        TreeNode subTree_b_1 = new TreeNode(5);
+
+        subTreeRoot.left = subTree_a_1;
+        subTreeRoot.right = subTree_b_1;
+
+        Assert.assertTrue(isSubtree(root, subTreeRoot));
+
+        subTreeRoot.left = subTree_b_1;
+        subTreeRoot.right = subTree_a_1;
+
+        Assert.assertFalse(isSubtree(root, subTreeRoot));
+    }
+
     private GraphNode constructGraph(GraphNode toFind) {
         GraphNode root = new GraphNode();
         root.children = new GraphNode[2];

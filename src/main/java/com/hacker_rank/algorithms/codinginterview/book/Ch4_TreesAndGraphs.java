@@ -344,12 +344,12 @@ public class Ch4_TreesAndGraphs {
         preOrderTraversal(first, firstPath);
         preOrderTraversal(second, secondPath);
 
-        return first.toString().contains(secondPath.toString());
+        return firstPath.toString().contains(secondPath.toString());
     }
 
     private static void preOrderTraversal(TreeNode root, StringBuilder pathBuilder) {
         if (root == null) {
-            pathBuilder.append("null");
+            pathBuilder.append("null ");
             return;
         }
         pathBuilder.append(root.val).append(" ");
