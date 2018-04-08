@@ -5,6 +5,7 @@ import com.hacker_rank.algorithms.codinginterview.book.util.TreeNode;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class Ch4_TreesAndGraphs {
@@ -355,6 +356,46 @@ public class Ch4_TreesAndGraphs {
         pathBuilder.append(root.val).append(" ");
         preOrderTraversal(root.left, pathBuilder);
         preOrderTraversal(root.right, pathBuilder);
+    }
+
+    /**
+     * 4.11 Random Node: Implement an algorithm to get a random node in a binary
+     * tree. All nodes should be equally likely to be chosen
+     *
+     * Time: O(n)
+     * Space: O(1)
+     *
+     * Optimisation: A modified TreeNode class can track the size of the subtree.
+     * This allows for us to make an informed decision whether to search the left
+     * or right subtree based on the generated index. Reduces the algorithm runtime
+     * to O(log n)
+     */
+    public static TreeNode getRandomNode(TreeNode root, int size) {
+        final Random random = new Random();
+        final int index = random.nextInt(size);
+
+        return getNode(root, index);
+    }
+
+    private static TreeNode getNode(TreeNode root, int index) {
+        return nodeHelper(root, index, new AtomicInteger(0));
+    }
+
+    private static TreeNode nodeHelper(TreeNode root, int indexToFind, AtomicInteger currIndex) {
+        if (root == null) {
+            return null;
+        }
+        if (indexToFind == currIndex.get()) {
+            return root;
+        }
+        currIndex.incrementAndGet();
+
+        TreeNode nodeToFind;
+        nodeToFind = nodeHelper(root.left, indexToFind, currIndex);
+        if (nodeToFind == null) {
+            nodeToFind = nodeHelper(root.left, indexToFind, currIndex);
+        }
+        return nodeToFind;
     }
 
     private static final class Graph<T> {

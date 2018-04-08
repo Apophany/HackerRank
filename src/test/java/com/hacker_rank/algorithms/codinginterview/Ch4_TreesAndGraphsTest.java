@@ -181,6 +181,12 @@ public class Ch4_TreesAndGraphsTest {
         Assert.assertFalse(isSubtree(root, subTreeRoot));
     }
 
+    @Test
+    public void test_get_random_node() {
+        final TreeNode root = constructTree();
+        Assert.assertNotNull(getRandomNode(root, 5));
+    }
+
     private GraphNode constructGraph(GraphNode toFind) {
         GraphNode root = new GraphNode();
         root.children = new GraphNode[2];
