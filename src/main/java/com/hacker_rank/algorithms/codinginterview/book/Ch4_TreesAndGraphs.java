@@ -398,6 +398,35 @@ public class Ch4_TreesAndGraphs {
         return nodeToFind;
     }
 
+    /**
+     *  4.12 Paths with Sum: Given a binary tree containing integer values,
+     *  design an algorithm to count the number of paths that sum to a given
+     *  value. The path does not need to start or end at a root or a leaf.
+     */
+    public static int numberOfPathsForSum(TreeNode node, int sum) {
+        return sumHelper(node, sum, 0, new HashMap<>());
+    }
+
+    private static int sumHelper(TreeNode node, int sum, int runningSum, Map<Integer, Integer> cache) {
+        if (node == null) {
+            return 0;
+        }
+        runningSum += node.val;
+        cache.merge(runningSum, 1, (before, after) -> before + 1);
+
+        int totalSum = cache.getOrDefault(runningSum - sum, 0);
+
+        if (runningSum == totalSum) {
+            totalSum += 1;
+        }
+        totalSum += sumHelper(node.left, sum, runningSum, cache);
+        totalSum += sumHelper(node.right, sum, runningSum, cache);
+
+        cache.merge(runningSum, 0, (before, after) -> before - 1);
+
+        return totalSum;
+    }
+
     private static final class Graph<T> {
         private final List<GenericGraphNode<T>> nodes = new ArrayList<>();
         private final Map<T, GenericGraphNode<T>> nodeKeyMap = new HashMap<>();
