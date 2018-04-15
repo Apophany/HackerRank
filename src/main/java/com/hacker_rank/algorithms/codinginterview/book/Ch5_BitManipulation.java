@@ -67,11 +67,14 @@ public class Ch5_BitManipulation {
         while (input != 0) {
             if ((input & 1) == 1) {
                 currSize++;
-            } else if ((input & 1) == 0) {
+            } else {
+                //Check if next value can be merged (is it 1?)
                 prevSize = (input & 2) == 0 ? 0 : currSize;
                 currSize = 0;
             }
             maxSize = Math.max(currSize + prevSize + 1, maxSize);
+
+            //Iterate
             input >>>= 1;
         }
 
