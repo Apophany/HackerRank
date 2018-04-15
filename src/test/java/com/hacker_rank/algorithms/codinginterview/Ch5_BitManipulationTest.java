@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static com.hacker_rank.algorithms.codinginterview.book.Ch5_BitManipulation.binaryToString;
+import static com.hacker_rank.algorithms.codinginterview.book.Ch5_BitManipulation.flipBitToWin;
 import static com.hacker_rank.algorithms.codinginterview.book.Ch5_BitManipulation.insertMtoN;
 
 public class Ch5_BitManipulationTest {
@@ -25,5 +26,10 @@ public class Ch5_BitManipulationTest {
         Assert.assertEquals(".11", binaryToString(0.75));
         Assert.assertEquals("ERROR", binaryToString(-0.5));
         Assert.assertEquals("ERROR", binaryToString(1.5));
+    }
+
+    @Test
+    public void test_FlipBitToWin() {
+        Assert.assertEquals(8, flipBitToWin(1775));
     }
 }

@@ -1,5 +1,7 @@
 package com.hacker_rank.algorithms.codinginterview.book;
 
+import org.omg.CORBA.INTERNAL;
+
 public class Ch5_BitManipulation {
     /**
      * 5.1 Insertion: Given two 32 bit numbers, N and M, and two bit positions,
@@ -41,5 +43,38 @@ public class Ch5_BitManipulation {
         }
 
         return builder.toString();
+    }
+
+    /**
+     * 53 Flip Bit to Win: You have an integer and you can flip exactly one bit
+     * from a 0 to a 1. Write code to find the length of the longest sequence
+     * of 1s that you could create
+     * <br>
+     * E.g.<br> Input: 1775 (11011101111)
+     * <br>
+     * Output: 8
+     */
+    public static int flipBitToWin(int input) {
+        //If all 1s, already the max sequence
+        if (~input == 0) {
+            return Integer.BYTES * Byte.SIZE;
+        }
+
+        int maxSize = 1;
+        int currSize = 0;
+        int prevSize = 0;
+
+        while (input != 0) {
+            if ((input & 1) == 1) {
+                currSize++;
+            } else if ((input & 1) == 0) {
+                prevSize = (input & 2) == 0 ? 0 : currSize;
+                currSize = 0;
+            }
+            maxSize = Math.max(currSize + prevSize + 1, maxSize);
+            input >>>= 1;
+        }
+
+        return maxSize;
     }
 }
