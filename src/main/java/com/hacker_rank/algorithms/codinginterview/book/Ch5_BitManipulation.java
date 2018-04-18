@@ -82,7 +82,7 @@ public class Ch5_BitManipulation {
     }
 
     /**
-     * 5.1 Given a positive number, print the next smallest and next largest number that have
+     * 5.4 Given a positive number, print the next smallest and next largest number that have
      * the same number of 1 bits in their binary representation
      */
     public static int nextHighest(int n) {
@@ -118,4 +118,8 @@ public class Ch5_BitManipulation {
         //Apply the mask to set the first (c1-1) bits to 1 bits
         return n | addMask;
     }
+
+    /**
+     *
+     */
 }
