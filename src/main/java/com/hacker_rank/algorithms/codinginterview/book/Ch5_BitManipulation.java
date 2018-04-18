@@ -46,7 +46,7 @@ public class Ch5_BitManipulation {
     }
 
     /**
-     * 53 Flip Bit to Win: You have an integer and you can flip exactly one bit
+     * 5.3 Flip Bit to Win: You have an integer and you can flip exactly one bit
      * from a 0 to a 1. Write code to find the length of the longest sequence
      * of 1s that you could create
      * <br>
@@ -79,5 +79,32 @@ public class Ch5_BitManipulation {
         }
 
         return maxSize;
+    }
+
+    /**
+     * 5.1 Given a positive number, print the next smallest and next largest number that have
+     * the same number of 1 bits in their binary representation
+     */
+    public static int nextHighest(int n) {
+        int c0 = 0;
+        int c1 = 1;
+
+        int tmp = n;
+        while ((tmp & 1) == 0 && (tmp & 1) != 1) {
+            c0++;
+            tmp >>= 1;
+        }
+        while ((tmp & 1) == 1) {
+            c1++;
+            tmp >>= 1;
+        }
+
+        int p = c0 + c1;
+        int clearMask = ~((1 << p) - 1);
+        int addMask = (1 << c1 - 1) - 1;
+
+        n |= (1 << p);
+        n &= clearMask;
+        return n | addMask;
     }
 }
