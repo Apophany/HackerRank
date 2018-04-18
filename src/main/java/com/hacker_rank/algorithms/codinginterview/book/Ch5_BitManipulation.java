@@ -90,21 +90,32 @@ public class Ch5_BitManipulation {
         int c1 = 1;
 
         int tmp = n;
+        //Find the number of 0 bits before the first 1 bit
         while ((tmp & 1) == 0 && (tmp & 1) != 1) {
             c0++;
             tmp >>= 1;
         }
+        //Find the number of 1 bits before the next 0 bit
         while ((tmp & 1) == 1) {
             c1++;
             tmp >>= 1;
         }
 
+        //The position of the first non-trailing 0 bit
         int p = c0 + c1;
+
+        //Mask to clear all the bits before p
         int clearMask = ~((1 << p) - 1);
+        //Mask to set the first (c1-1) to 1 bits
         int addMask = (1 << c1 - 1) - 1;
 
+        //Set the pth bit to 1
         n |= (1 << p);
+
+        //Apply the mask to clear all bits before p
         n &= clearMask;
+
+        //Apply the mask to set the first (c1-1) bits to 1 bits
         return n | addMask;
     }
 }
