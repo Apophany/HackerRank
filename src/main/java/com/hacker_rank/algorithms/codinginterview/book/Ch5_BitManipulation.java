@@ -1,5 +1,7 @@
 package com.hacker_rank.algorithms.codinginterview.book;
 
+import static java.lang.String.format;
+
 public class Ch5_BitManipulation {
     /**
      * 5.1 Insertion: Given two 32 bit numbers, N and M, and two bit positions,
@@ -118,7 +120,7 @@ public class Ch5_BitManipulation {
     }
 
     /**
-     * 5.5 Conversion: Determine the number of bits you need to flip to
+     * 5.6 Conversion: Determine the number of bits you need to flip to
      * convert integer A to integer B
      */
     public static int numberOfBitsToConvert(int a, int b) {
@@ -136,7 +138,7 @@ public class Ch5_BitManipulation {
     }
 
     /**
-     * Pairwise swap: Write a program to swap odd and even bits in an integer with
+     * 5.7 Pairwise swap: Write a program to swap odd and even bits in an integer with
      * as few as instructions as possible
      * <p>
      * e.g bit 0 and bit 1 are swapped, bit 2 and bit 3 are swapped and so on
@@ -146,5 +148,59 @@ public class Ch5_BitManipulation {
         final int oddMask = 0x55555555;
 
         return ((a & evenMask) >> 1) | ((a & oddMask) << 1);
+    }
+
+    /**
+     * <b>5.8 Draw line:</b> A monochrome screen is stored as a single array of bytes,
+     * allowing eight consecutive pixels to be stored in one byte. The screen
+     * has width w, where w is divisible by 8 (that is, no byte will be split
+     * across rows). The height of the screen, of course, can be derived from
+     * the length of the array and the width. Implement a function to draw a
+     * horizontal line from (x1, y) to (x2, y).
+     * <p><p>
+     * The method signature should look something like:
+     * <p>
+     * drawLine(byte[] screen, int width, int x1, int x2, int y)
+     *
+     * Note: Bug when x1 & x2 are in the same byte
+     */
+    public static void drawLine(byte[] screen, int width, int x1, int x2, int y) {
+        final int rowNum = (width / 8) * (y - 1);
+        final int numRows = (screen.length * 8) / width;
+        if (rowNum > numRows) {
+            throw new IllegalArgumentException(
+                    format("Cannot draw row at height: %d. Screen height is: %d", rowNum, numRows)
+            );
+        }
+
+        final int indexStart = rowNum + (x1 / 8);
+        final int indexEnd = rowNum + (x2 / 8);
+        if (indexEnd > width) {
+            throw new IllegalArgumentException(
+                    format("Cannot draw line to index %d. Screen width is: %d", indexEnd, width)
+            );
+        }
+
+        int currByte = indexStart;
+        int bitsToSet = x2 - x1;
+
+        //Set the start bits
+        int startOffset = x1 % 8;
+        screen[currByte] = (byte) (screen[currByte] & (0xFF >> startOffset));
+        bitsToSet -= startOffset;
+
+        //Set the middle blocks
+        while (bitsToSet / 8 != 0) {
+            screen[currByte++] = (byte) 0xFF;
+            bitsToSet -= 8;
+        }
+
+        //Set the end bits (checking if x1 & x2 are in the same byte)
+        if ((x1 / 8) != (x2 / 8 )) {
+            currByte++;
+            screen[currByte] = (byte)(screen[currByte] & (~(0xFF >> (bitsToSet - 1))));
+        } else {
+            screen[currByte] = (byte)(screen[currByte] | (~(0xFF >> (bitsToSet - 1))));
+        }
     }
 }
