@@ -1,7 +1,5 @@
 package com.hacker_rank.algorithms.codinginterview.book;
 
-import org.omg.CORBA.INTERNAL;
-
 public class Ch5_BitManipulation {
     /**
      * 5.1 Insertion: Given two 32 bit numbers, N and M, and two bit positions,
@@ -120,6 +118,33 @@ public class Ch5_BitManipulation {
     }
 
     /**
-     *
+     * 5.5 Conversion: Determine the number of bits you need to flip to
+     * convert integer A to integer B
      */
+    public static int numberOfBitsToConvert(int a, int b) {
+        int diffBits = a ^ b;
+        int bitsToFlip = 0;
+
+        while (diffBits != 0) {
+            if ((diffBits & 1) == 1) {
+                bitsToFlip++;
+            }
+            diffBits >>= 1;
+        }
+
+        return bitsToFlip;
+    }
+
+    /**
+     * Pairwise swap: Write a program to swap odd and even bits in an integer with
+     * as few as instructions as possible
+     * <p>
+     * e.g bit 0 and bit 1 are swapped, bit 2 and bit 3 are swapped and so on
+     */
+    public static int pairwiseSwap(int a) {
+        final int evenMask = 0xAAAAAAAA;
+        final int oddMask = 0x55555555;
+
+        return ((a & evenMask) >> 1) | ((a & oddMask) << 1);
+    }
 }

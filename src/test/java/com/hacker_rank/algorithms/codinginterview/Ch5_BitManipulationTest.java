@@ -35,4 +35,14 @@ public class Ch5_BitManipulationTest {
     public void test_findNextHighestAndLowest() {
         Assert.assertEquals(13, nextHighest(9));
     }
+
+    @Test
+    public void test_BitsToFlip() {
+        Assert.assertEquals(2, numberOfBitsToConvert(29, 15));
+    }
+
+    @Test
+    public void test_pairwiseSwap() {
+        Assert.assertEquals(Integer.parseInt("1100101", 2), pairwiseSwap(Integer.parseInt("10011010", 2)));
+    }
 }
