@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import static codinginterview.book.Ch8_RecursionAndDP.*;
 
@@ -43,5 +45,17 @@ public class Ch8_RecursionAndDPTest {
 
         arr = new int[]{-2, 1, 3, 7, 23};
         Assert.assertEquals(1, getMagicIndex(arr));
+    }
+
+    @Test
+    public void test_PowerSet() {
+        Set<Integer> set = new HashSet<>();
+        set.add(2);
+        set.add(5);
+        set.add(7);
+
+        final Set<Set<Integer>> subsets = powerSet(set);
+
+        System.out.println(subsets);
     }
 }

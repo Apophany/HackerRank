@@ -1,9 +1,6 @@
 package codinginterview.book;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Ch8_RecursionAndDP {
     /**
@@ -109,5 +106,27 @@ public class Ch8_RecursionAndDP {
             }
         }
         return Integer.MIN_VALUE;
+    }
+
+    /**
+     * 8.4 Power Set: Write a method to return all subsets of a set
+     */
+    public static <T> Set<Set<T>> powerSet(Set<T> set) {
+        final Set<Set<T>> subsets = new HashSet<>();
+        powerSet(subsets, new HashSet<>(), set);
+        return subsets;
+    }
+
+    private static <T> void powerSet(Set<Set<T>> subsets, Set<T> currSubSet, Set<T> remainingElements) {
+        for (T t : remainingElements) {
+            final Set<T> elements = new HashSet<>(remainingElements);
+            elements.remove(t);
+
+            final Set<T> curr = new HashSet<>(currSubSet);
+            curr.add(t);
+            subsets.add(curr);
+
+            powerSet(subsets, curr, elements);
+        }
     }
 }
