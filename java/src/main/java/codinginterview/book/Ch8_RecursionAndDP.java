@@ -82,4 +82,32 @@ public class Ch8_RecursionAndDP {
             this.y = y;
         }
     }
+
+    /**
+     * 8.3 Magic Index: A magic index in an array A[0..n-1] is defined to be
+     * an index such that A[i] = i. Given a sorted array of distinct integers,
+     * write a method to find a magic index, if one exists, in array A
+     */
+    public static int getMagicIndex(int[] arr) {
+        int low = 0;
+        int high = arr.length - 1;
+
+        while (low <= high) {
+            //Avoid integer overflow
+            int midPoint = high - ((high - low) / 2);
+
+            if (arr[midPoint] == midPoint) {
+                return midPoint;
+            }
+
+            if (arr[midPoint] < midPoint) {
+                low = midPoint + 1;
+                continue;
+            }
+            if (arr[midPoint] > midPoint) {
+                high = midPoint - 1;
+            }
+        }
+        return Integer.MIN_VALUE;
+    }
 }

@@ -5,8 +5,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static codinginterview.book.Ch8_RecursionAndDP.robotInAGrid;
-import static codinginterview.book.Ch8_RecursionAndDP.tripleStep;
+import static codinginterview.book.Ch8_RecursionAndDP.*;
 
 public class Ch8_RecursionAndDPTest {
     @Test
@@ -30,5 +29,19 @@ public class Ch8_RecursionAndDPTest {
 
         grid[3][2] = false;
         Assert.assertTrue(robotInAGrid(grid).isEmpty());
+    }
+
+    @Test
+    public void test_MagicIndex() {
+        int[] arr;
+
+        arr = new int[]{2, 3, 4, 5, 6, 7};
+        Assert.assertEquals(Integer.MIN_VALUE, getMagicIndex(arr));
+
+        arr = new int[]{-2, -3, -4, -5, -6, -7};
+        Assert.assertEquals(Integer.MIN_VALUE, getMagicIndex(arr));
+
+        arr = new int[]{-2, 1, 3, 7, 23};
+        Assert.assertEquals(1, getMagicIndex(arr));
     }
 }
