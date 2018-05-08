@@ -38,7 +38,7 @@ public class Ch8_RecursionAndDP {
      * an algorithm to find a path for the robot from the top left to
      * the bottom right.
      */
-    public List<Point> robotInAGrid(boolean[][] grid) {
+    public static List<Point> robotInAGrid(boolean[][] grid) {
         if (grid.length == 0 || grid[0].length == 0) {
             throw new IllegalArgumentException("Grid must be at least 1x1");
         }
@@ -46,7 +46,7 @@ public class Ch8_RecursionAndDP {
         return robotInAGrid(grid, memo, grid.length - 1, grid[0].length - 1);
     }
 
-    private List<Point> robotInAGrid(boolean[][] grid, Map<Point, List<Point>> memo, int x, int y) {
+    private static List<Point> robotInAGrid(boolean[][] grid, Map<Point, List<Point>> memo, int x, int y) {
         if (x < 0 || y < 0 || x > grid.length || y > grid[0].length) {
             return null;
         }
@@ -62,17 +62,18 @@ public class Ch8_RecursionAndDP {
             if (path == null || path.isEmpty()) {
                 path = robotInAGrid(grid, memo, x, y - 1);
             }
-            if (path != null && (isOrigin || !path.isEmpty())) {
-                path.add(point);
-            } else {
+            if (path == null) {
                 path = new ArrayList<>();
+            }
+            if (!path.isEmpty() || isOrigin) {
+                path.add(point);
             }
             memo.put(point, path);
         }
         return memo.get(point);
     }
 
-    private class Point {
+    public static class Point {
         int x;
         int y;
 
