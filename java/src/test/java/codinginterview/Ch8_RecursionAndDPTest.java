@@ -56,6 +56,13 @@ public class Ch8_RecursionAndDPTest {
 
         final Set<Set<Integer>> subsets = powerSet(set);
 
-        System.out.println(subsets);
+        Assert.assertEquals(7, subsets.size());
+    }
+
+    @Test
+    public void test_multiply() {
+        Assert.assertEquals(6, multiply(2, 3));
+        Assert.assertEquals(0, multiply(2, 0));
+        Assert.assertEquals(0, multiply(0, 2));
     }
 }

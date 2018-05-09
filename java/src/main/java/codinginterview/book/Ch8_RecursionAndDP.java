@@ -129,4 +129,30 @@ public class Ch8_RecursionAndDP {
             powerSet(subsets, curr, elements);
         }
     }
+
+    /**
+     * 8.5 Recursive Multiply: Write a recursive function to multiply two positive integers
+     * without using the * operator. You can use addition, subtraction, and bit shifting,
+     * but you should minimize the number of those operations
+     */
+    public static int multiply(int a, int b) {
+        int bigger = a < b ? b : a;
+        int smaller = a < b ? a : b;
+        return multiplyHelper(smaller, bigger);
+    }
+
+    private static int multiplyHelper(int smaller, int bigger) {
+        if (smaller == 0) {
+            return 0;
+        }
+        if (smaller == 1) {
+            return bigger;
+        }
+
+        int halfProduct = multiplyHelper(smaller >> 1, bigger);
+        if ((halfProduct & 1) == 1) {
+            return halfProduct + halfProduct;
+        }
+        return halfProduct + halfProduct + bigger;
+    }
 }
