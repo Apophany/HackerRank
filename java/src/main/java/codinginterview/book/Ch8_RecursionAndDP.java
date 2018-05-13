@@ -217,4 +217,40 @@ public class Ch8_RecursionAndDP {
         }
         return permutations;
     }
+
+    /**
+     * 8.8 Permutations with dupes: Write a method to computer all permutations
+     * of a string whose characters are not necessary unique. The list of
+     * permutations should not have duplicates
+     */
+    public static List<String> permutationsWithDupes(String s) {
+        final HashMap<Character, Integer> charFreqs = buildFreqMap(s);
+        final List<String> result = new ArrayList<>();
+        permutationWithDupeHelper("", s.length(), charFreqs, result);
+        return result;
+    }
+
+    private static HashMap<Character, Integer> buildFreqMap(String s) {
+        final HashMap<Character, Integer> freq = new HashMap<>();
+        for (Character c : s.toCharArray()) {
+            freq.merge(c, 1, (oldV, newV) -> oldV + newV);
+        }
+        return freq;
+    }
+
+    private static void permutationWithDupeHelper(String prefix, int remaining, HashMap<Character, Integer> charFreqs, List<String> result) {
+        if (remaining == 0) {
+            result.add(prefix);
+            return;
+        }
+
+        for (Character c : charFreqs.keySet()) {
+            final Integer count = charFreqs.get(c);
+            if (count > 0) {
+                charFreqs.put(c, count - 1);
+                permutationWithDupeHelper(prefix + c, remaining - 1, charFreqs, result);
+                charFreqs.put(c, count);
+            }
+        }
+    }
 }

@@ -84,4 +84,10 @@ public class Ch8_RecursionAndDPTest {
 
         System.out.println(permutations(characters));
     }
+
+    @Test
+    public void test_permutations_without_dupes() {
+        String s = "abccc";
+        System.out.println(permutationsWithDupes(s));
+    }
 }
