@@ -155,4 +155,40 @@ public class Ch8_RecursionAndDP {
         }
         return halfProduct + halfProduct + bigger;
     }
+
+    /**
+     * 8.6 Towers of Hanoi: In the classic problem of the Towers of Hanoi, you
+     * have 3 towers and N disks of different sizes which can slide onto any
+     * tower. The puzzle starts with disks sorted in ascending order of size
+     * from top to bottom. You have the following constraints:
+     * <p>
+     * 1. Only one disk can be moved at a time
+     * <p>
+     * 2. A disk is slide off the top of one tower to another
+     * <p>
+     * 3. A disk cannot be placed on top of a smaller disk
+     * <p>
+     * Write a program to move the disks from the first tower to the last using
+     * stacks.
+     */
+    public static void hanoiSolver(Stack<Integer> first, Stack<Integer> second, Stack<Integer> third) {
+        hanoiSolverHelper(first.size(), first, third, second);
+    }
+
+    private static void hanoiSolverHelper(int n, Stack<Integer> from, Stack<Integer> to, Stack<Integer> buffer) {
+        if (n > 0) {
+            hanoiSolverHelper(n - 1, from, buffer, to);
+            moveTopTo(from, to);
+            hanoiSolverHelper(n - 1, buffer, to, from);
+        }
+    }
+
+    private static void moveTopTo(Stack<Integer> from, Stack<Integer> to) {
+        int valToMove = from.pop();
+        if (!to.isEmpty() && to.peek() <= valToMove) {
+            System.out.println("Error replacing disk");
+        } else {
+            to.push(valToMove);
+        }
+    }
 }

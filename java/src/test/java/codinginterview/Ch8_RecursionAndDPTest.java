@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Stack;
 
 import static codinginterview.book.Ch8_RecursionAndDP.*;
 
@@ -64,5 +65,20 @@ public class Ch8_RecursionAndDPTest {
         Assert.assertEquals(6, multiply(2, 3));
         Assert.assertEquals(0, multiply(2, 0));
         Assert.assertEquals(0, multiply(0, 2));
+    }
+
+    @Test
+    public void test_towers_of_hanoi() {
+        Stack<Integer> origin = new Stack<>();
+        origin.push(5);
+        origin.push(4);
+        origin.push(3);
+        origin.push(2);
+        origin.push(1);
+
+        final Stack<Integer> destination = new Stack<>();
+        hanoiSolver(origin, new Stack<>(), destination);
+
+        System.out.println(destination);
     }
 }
