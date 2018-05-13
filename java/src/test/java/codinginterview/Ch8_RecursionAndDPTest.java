@@ -3,10 +3,7 @@ package codinginterview;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 
 import static codinginterview.book.Ch8_RecursionAndDP.*;
 
@@ -71,14 +68,20 @@ public class Ch8_RecursionAndDPTest {
     public void test_towers_of_hanoi() {
         Stack<Integer> origin = new Stack<>();
         origin.push(5);
-        origin.push(4);
-        origin.push(3);
-        origin.push(2);
-        origin.push(1);
 
         final Stack<Integer> destination = new Stack<>();
         hanoiSolver(origin, new Stack<>(), destination);
 
         System.out.println(destination);
+    }
+
+    @Test
+    public void test_permutations_with_dupes() {
+        List<Character> characters = new ArrayList<>();
+        characters.add('1');
+        characters.add('2');
+        characters.add('3');
+
+        System.out.println(permutations(characters));
     }
 }

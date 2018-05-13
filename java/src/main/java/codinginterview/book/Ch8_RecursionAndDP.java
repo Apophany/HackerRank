@@ -191,4 +191,30 @@ public class Ch8_RecursionAndDP {
             to.push(valToMove);
         }
     }
+
+    /**
+     * 8.7 Permutations without dups: Write a method to compute all
+     * permutations of a string of unique characters
+     */
+    public static List<List<Character>> permutations(List<Character> characters) {
+        return permutationHelper(new ArrayList<>(), new ArrayList<>(), characters);
+    }
+
+    private static List<List<Character>> permutationHelper(
+            List<List<Character>> permutations,
+            List<Character> curr,
+            List<Character> characters
+    ) {
+        if (curr.size() == characters.size()) {
+            permutations.add(curr);
+        }
+        for (Character c : characters) {
+            if (!curr.contains(c)) {
+                List<Character> permutation = new ArrayList<>(curr);
+                permutation.add(c);
+                permutationHelper(permutations, permutation, characters);
+            }
+        }
+        return permutations;
+    }
 }
