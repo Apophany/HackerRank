@@ -68,11 +68,15 @@ public class Ch8_RecursionAndDPTest {
     public void test_towers_of_hanoi() {
         Stack<Integer> origin = new Stack<>();
         origin.push(5);
+        origin.push(4);
+        origin.push(3);
+        origin.push(2);
+        origin.push(1);
 
         final Stack<Integer> destination = new Stack<>();
         hanoiSolver(origin, new Stack<>(), destination);
 
-        System.out.println(destination);
+        Assert.assertEquals(5, destination.size());
     }
 
     @Test
@@ -82,12 +86,23 @@ public class Ch8_RecursionAndDPTest {
         characters.add('2');
         characters.add('3');
 
-        System.out.println(permutations(characters));
+        Assert.assertEquals(
+                "[[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]",
+                permutations(characters).toString()
+        );
     }
 
     @Test
     public void test_permutations_without_dupes() {
-        String s = "abccc";
-        System.out.println(permutationsWithDupes(s));
+        String s = "abcc";
+        Assert.assertEquals(
+                "[abcc, acbc, accb, bacc, bcac, bcca, cabc, cacb, cbac, cbca, ccab, ccba]",
+                permutationsWithDupes(s).toString()
+        );
+    }
+
+    @Test
+    public void test_parentheses_combinations() {
+        Assert.assertEquals("[((())), (()()), (())(), ()(()), ()()()]", parens(3).toString());
     }
 }

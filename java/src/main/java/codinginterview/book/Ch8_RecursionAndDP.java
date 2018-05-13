@@ -253,4 +253,27 @@ public class Ch8_RecursionAndDP {
             }
         }
     }
+
+    /**
+     * 8.9 Parens: Print all valid (e.g properly opened and closed) combinations
+     * of n pairs of parentheses
+     */
+    public static List<String> parens(int numPairs) {
+        final ArrayList<String> combinations = new ArrayList<>();
+        parenHelper("", 0, 0, numPairs, combinations);
+        return combinations;
+    }
+
+    private static void parenHelper(String curr, int numOpen, int numClosed, int numPairs, List<String> combinations) {
+        if ((numOpen == numClosed) && (numOpen == numPairs)) {
+            combinations.add(curr);
+            return;
+        }
+        if (numOpen != numPairs) {
+            parenHelper(curr + "(", numOpen + 1, numClosed, numPairs, combinations);
+        }
+        if (numClosed < numOpen) {
+            parenHelper(curr + ")", numOpen, numClosed + 1, numPairs, combinations);
+        }
+    }
 }
