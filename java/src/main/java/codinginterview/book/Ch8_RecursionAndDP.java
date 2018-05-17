@@ -276,4 +276,34 @@ public class Ch8_RecursionAndDP {
             parenHelper(curr + ")", numOpen, numClosed + 1, numPairs, combinations);
         }
     }
+
+    /**
+     * 8.10 Paint Fill: Implement the 'paint fill' function that one might see on
+     * many image editing programs. That is, given a screen (represented by a two-
+     * dimensional array of colours), a point, and a new colour, fill in the
+     * surrounding area until the colour changes from the original colour.
+     */
+    public static void fill(int[][] screen, Point point, int colour) {
+        final boolean[][] visited = new boolean[screen.length][];
+        Arrays.fill(visited, new boolean[screen.length]);
+
+        final Queue<Point> toExplore = new LinkedList<>();
+        toExplore.offer(point);
+
+        while (!toExplore.isEmpty()) {
+            final Point p = toExplore.poll();
+            if (p.y > screen.length - 1 || p.x > screen.length - 1 || visited[p.y][p.x]) {
+                continue;
+            }
+            visited[p.y][p.x] = true;
+            if (screen[p.y][p.x] != screen[point.y][point.x]) {
+                continue;
+            }
+            screen[p.y][p.x] = colour;
+            toExplore.offer(new Point(p.x + 1, p.y));
+            toExplore.offer(new Point(p.x - 1, p.y));
+            toExplore.offer(new Point(p.x, p.y + 1));
+            toExplore.offer(new Point(p.x, p.y - 1));
+        }
+    }
 }
