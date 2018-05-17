@@ -283,27 +283,29 @@ public class Ch8_RecursionAndDP {
      * dimensional array of colours), a point, and a new colour, fill in the
      * surrounding area until the colour changes from the original colour.
      */
-    public static void fill(int[][] screen, Point point, int colour) {
-        final boolean[][] visited = new boolean[screen.length][];
-        Arrays.fill(visited, new boolean[screen.length]);
+    public static void fill(int[][] screen, Point point, int newColour) {
+        final int originalColour = screen[point.y][point.x];
 
         final Queue<Point> toExplore = new LinkedList<>();
         toExplore.offer(point);
 
         while (!toExplore.isEmpty()) {
             final Point p = toExplore.poll();
-            if (p.y > screen.length - 1 || p.x > screen.length - 1 || visited[p.y][p.x]) {
+            if (p == null || isOutOfBounds(p, screen)) {
                 continue;
             }
-            visited[p.y][p.x] = true;
-            if (screen[p.y][p.x] != screen[point.y][point.x]) {
+            if (screen[p.y][p.x] != originalColour) {
                 continue;
             }
-            screen[p.y][p.x] = colour;
+            screen[p.y][p.x] = newColour;
             toExplore.offer(new Point(p.x + 1, p.y));
             toExplore.offer(new Point(p.x - 1, p.y));
             toExplore.offer(new Point(p.x, p.y + 1));
             toExplore.offer(new Point(p.x, p.y - 1));
         }
+    }
+
+    private static boolean isOutOfBounds(Point p, int[][] screen) {
+        return p.y < 0 || p.y > screen.length - 1 || p.x < 0 || p.x > screen.length - 1;
     }
 }
