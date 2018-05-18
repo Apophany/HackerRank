@@ -105,4 +105,12 @@ public class Ch8_RecursionAndDPTest {
     public void test_parentheses_combinations() {
         Assert.assertEquals("[((())), (()()), (())(), ()(()), ()()()]", parens(3).toString());
     }
+
+    @Test
+    public void test_coin_combinations() {
+        Assert.assertEquals(1, numCombinations(1, new int[]{3, 2}));
+        Assert.assertEquals(1, numCombinations(1, new int[]{3, 2, 1}));
+        Assert.assertEquals(2, numCombinations(2, new int[]{3, 2, 1}));
+        Assert.assertEquals(4, numCombinations(4, new int[]{5, 3, 2, 1}));
+    }
 }

@@ -308,4 +308,31 @@ public class Ch8_RecursionAndDP {
     private static boolean isOutOfBounds(Point p, int[][] screen) {
         return p.y < 0 || p.y > screen.length - 1 || p.x < 0 || p.x > screen.length - 1;
     }
+
+    /**
+     * 8.11 Coins: Given an infinite number of quarters (25 cents), dimes (10 cents),
+     * nickels (5 cents), and pennies (1 cent), write code to calculate the number
+     * of ways of representing n cents.
+     */
+    public static int numCombinations(int numCents, int[] availableCoins) {
+        int[][] cache = new int[numCents + 1][availableCoins.length];
+        return coinHelper(numCents, availableCoins, 0, cache);
+    }
+
+    private static int coinHelper(int numCents, int[] coins, int index, int[][] cache) {
+        if (cache[numCents][index] > 0) {
+            return cache[numCents][coins[index]];
+        }
+        if (numCents == 0 || index >= coins.length - 1) {
+            return 1;
+        }
+        int coin = coins[index];
+        int numWays = 0;
+        for (int i = 0; i * coin <= numCents; i++) {
+            int remaining = numCents - (i * coin);
+            numWays += coinHelper(remaining, coins, index + 1, cache);
+        }
+        cache[numCents][index] = numWays;
+        return numWays;
+    }
 }
