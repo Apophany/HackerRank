@@ -3,7 +3,7 @@ package codility;
 import java.time.Duration;
 import java.util.*;
 
-public class Question2 {
+public class PhoneCallBilling {
 
     private static final String LINE_END = "\n";
     private static final String CALL_PART_SEPARATOR = ",";
@@ -130,7 +130,7 @@ public class Question2 {
     }
 
     public static void main(String[] args) {
-        Question2 q = new Question2();
+        PhoneCallBilling q = new PhoneCallBilling();
         System.out.println(q.solution("00:01:07,400-234-090\n00:05:01,701-080-080\n00:05:00,400-234-090"));
     }
 }

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Question1 {
+public class MinimumDiceRotations {
     private static final Map<Integer, List<Integer>> rotationMap = new HashMap<>();
 
     public int solution(int[] A) {
@@ -52,7 +52,7 @@ public class Question1 {
     }
 
     public static void main(String[] args) {
-        final Question1 q = new Question1();
+        final MinimumDiceRotations q = new MinimumDiceRotations();
         System.out.println(q.solution(new int[]{1, 2, 3, 4, 5, 6}));
     }
 }
